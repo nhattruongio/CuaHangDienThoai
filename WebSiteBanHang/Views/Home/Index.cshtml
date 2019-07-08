@@ -1,0 +1,23 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+@{
+    IEnumerable<SanPham> lstDTM = (IEnumerable<SanPham>)ViewBag.ListDTM;
+}
+<div class="container">
+    <div class="well"  >
+        <h3 style=" font-family:Poppins, sans-serif;color:red;text-align:center;font-weight:bold ">
+            Điện thoại mới nhất
+        </h3>
+    </div>
+    <div class="grid-in">
+        @Html.Partial("~/Views/SanPham/SanPhamStyle1Partial.cshtml", lstDTM)
+    </div>
+    <div style="padding-top:30px">
+
+    </div>
+</div>
+

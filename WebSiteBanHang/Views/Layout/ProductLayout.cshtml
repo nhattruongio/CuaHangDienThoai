@@ -1,0 +1,145 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="zz">
+    <link rel="icon" type="image/png" href="~/Content/Account/images/icons/favicon.ico" />
+
+    @*<link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">*@
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/Content/Account/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--theme-style-->
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all">
+    <!--//theme-style-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, p, label, a, title, input, td, tr {
+            font-family: "Poppins", sans-serif
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            background: #f0f0f0;
+            font-size: 16px;
+        }
+
+        .w3-half img {
+            margin-bottom: -6px;
+            margin-top: 16px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+        container .img {
+            position: fixed;
+        }
+
+        .w3-half img:hover {
+            opacity: 1
+        }
+    </style>
+    <script type="application/x-javascript">
+        addEventListener("load", function(){setTimeout(hideURLbar, 0);},false);function hideURLbar(){ window.scrollTo(0,1);}
+    </script>
+    <!-- start menu -->
+
+    <link href="~/Content/css/memenu.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript" src="~/Content/js/memenu.js"></script>
+    @*<script>$(document).ready(function () { $(".memenu").memenu(); });</script>*@
+    <script src="~/Content/js/simpleCart.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body style="background-color:#f0f0f0">
+    <!--header-->
+    <div class="header">
+        @Html.Partial("~/Views/Layout/HeaderTopPartial.cshtml")
+        <div class="container">
+            <div class="head-top">
+                <div class="logo">
+                    <div class="memenu">
+                        <button>
+                            <span style=" text-decoration: none;">
+                                @Html.ActionLink("Trang chủ", "Index", "Home")
+                            </span>
+                        </button>
+
+                    </div>
+                </div>
+                @Html.Action("MenuPartial", "Home")
+
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+
+    <!--content-->
+    <!--content-->
+    <!---->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div style="width:auto;padding:unset">
+                    <img src="~/Content/images/THU_CU_MUA_DT_CU_1200X75.png" style="width:1110px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+    <!--//content-->
+
+    <div class="footer">
+        <div class="container">
+            <div class="footer-top-at">
+                <div class="col-md-4 amet-sed">
+                    <h4>Liên kết</h4>
+                    <ul class="nav-bottom">
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Cửa hàng</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Khách hàng thân thiết</a></li>
+                        <li><a href="#">Phản hồi - Khiếu nại </a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 amet-sed ">
+                    <h4>ĐỊA CHỈ</h4>
+                    <p>
+                        860 Xô Viết Nghệ Tĩnh,Bình Thạnh,Tp.Hồ Chí Minh
+                    </p>
+
+                    <ul class="social">
+                        <li><a href="#"><i> </i></a></li>
+                        <li><a href="#"><i class="twitter"> </i></a></li>
+                        <li><a href="#"><i class="rss"> </i></a></li>
+                        <li><a href="#"><i class="gmail"> </i></a></li>
+
+                    </ul>
+                </div>
+                <div class="col-md-4 amet-sed">
+                    <h4>Đăng kí nhận tin</h4>
+                    <form>
+                        <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                        <input type="submit" value="Sign up">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="footer-class">
+            <p>© 2019 Cellphone All Rights Reserved | Sản phẩm của HubTeam </p>
+        </div>
+    </div>
+</body>
+</html>
+

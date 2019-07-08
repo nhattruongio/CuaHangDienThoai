@@ -1,0 +1,301 @@
+﻿@using WebSiteBanHang.Models;
+@model SanPham
+@{
+    ViewBag.Title = @Model.TenSP;
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+<script defer src="~/Content/js/jquery.flexslider.js"></script>
+<link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen" />
+
+<style>
+    body, h1, h2, h3, h4, h5, p, label, a, title, input, li, ul, option, select {
+        font-family: "Poppins", sans-serif
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+    body {
+        font-size: 16px;
+    }
+
+    /*.w3-half img {
+        margin-bottom: -6px;
+        margin-top: 16px;
+        opacity: 0.8;
+        cursor: pointer
+    }*/
+    .w3-half img:hover {
+        opacity: 1
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div style="padding-top:40px">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li data-thumb="@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh)">
+                            <div class="thumb-image">
+                                <img src="@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh)" />
+                            </div>
+                        </li>
+                        <li data-thumb="@Url.Content("/Content/HinhAnhSP/" + Model.HinhAnh1)">
+                            <div class="thumb-image">
+                                <img src="@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh1)" />
+                            </div>
+                        </li>
+                        <li data-thumb="@Url.Content("/Content/HinhAnhSP/" + Model.HinhAnh2)">
+                            <div class="thumb-image">
+                                <img src="@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh2)" />
+                            </div>
+                        </li>
+                        <li data-thumb="@Url.Content("/Content/HinhAnhSP/" + Model.HinhAnh3)">
+                            <div class="thumb-image">
+                                <img src="@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh3)" />
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- FlexSlider -->
+
+                <script>
+                    // Can also be used with $(document).ready()
+                    //$(window).load(function ()
+                     $(document).ready(function (){
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            controlNav: "thumbnails"
+                        });
+                    });
+                </script>
+                <!--//FlexSlider -->
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div style="padding-top:20px">
+                <div class="single-para ">
+                    <h5>@Model.TenSP</h5>
+
+                    <h5 class="item_price">@Model.DonGia.Value.ToString("#,##") VNĐ</h5>
+                    <div class="available">
+                        <ul>
+                            <li>
+                                <p>Màn hình</p>
+                                <select>
+                                    <option>@Html.Raw(Model.ManHinh)</option>
+                                </select>
+                            </li>
+                            <li>
+                                <p>  Bộ nhớ Ram</p>
+                                <select>
+                                    <option>@Html.Raw(Model.Ram) GB</option>
+                                </select>
+                            </li>
+                            <li>
+                                <p>
+                                    Bộ nhớ trong
+                                </p>
+                                <select>
+                                    <option>@Html.Raw(Model.Rom) GB</option>
+                                </select>
+                            </li>
+                        </ul>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button style="background:#fd6e1d">
+                                <i class="fa fa-shopping-cart"> </i>
+                                @Ajax.ActionLink("Mua ngay", "ThemGioHangAjax", "GioHang", new {
+                                                                                                   @MaSP = @Model.MaSP, @strURL = Request.Url.ToString()
+                                                                                               },new AjaxOptions {
+                                                                                                   HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace
+                                                                                               })
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn-success">
+                               
+                                @*@Url.Action("DangPhatTrien", "Home")*@
+                                @Html.ActionLink("Trả góp 0%","DangPhatTrien","Home")
+                            </button>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#home">Khuyến mãi</a></li>
+            <li><a href="#menu1">Thông tin sản phẩm</a></li>
+            <li><a href="#menu2">Mô tả</a></li>
+            <li><a href="#menu3">Đánh giá</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3>Khuyến mãi</h3>
+                <hr />
+            </div>
+
+            <div id="menu1" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Thông số kĩ thuật</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Màn hình:</th>
+                                    <td>@Html.Raw(Model.ManHinh)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Camera sau:</th>
+                                    <td>@Html.Raw(Model.CameraSau)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Camera trước:</th>
+                                    <td>@Html.Raw(Model.CameraTruoc)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Nhà phân phối:</th>
+                                    <td>@Html.Raw(Model.NhaCungCap.TenNCC)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">CPU:</th>
+                                    <td>@Html.Raw(Model.CauHinh)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">RAM:</th>
+                                    <td>@Html.Raw(Model.Ram)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Bộ nhớ trong:</th>
+                                    <td>@Html.Raw(Model.Rom)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Dung lượng pin:</th>
+                                    <td>@Html.Raw(Model.Pin)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div style="padding-top:30px;width:570px;height:360px;">
+                            <img src="@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh)" style="width:560px;height:320px; border:dashed" />
+
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+            </div>
+
+            <div id="menu2" class="tab-pane fade">
+
+                <h3>Thông tin sản phẩm</h3>
+                @Html.Raw(Model.MoTa)
+                <img class="img-responsive" src=@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh) alt="">
+                <hr />
+            </div>
+
+            <div id="menu3" class="tab-pane fade">
+                <h3>Đánh giá</h3>
+                @*<div class="comments-top-top">
+            <div class="top-comment-left">
+                <img class="img-responsive" src="~/Content/images/co.png" alt="">
+            </div>
+            <div class="top-comment-right">
+                <h6><a href="#">Hendri</a> - September 3, 2014</h6>
+                <ul class="star-footer">
+                    <li><a href="#"><i> </i></a></li>
+                    <li><a href="#"><i> </i></a></li>
+                    <li><a href="#"><i> </i></a></li>
+                    <li><a href="#"><i> </i></a></li>
+                    <li><a href="#"><i> </i></a></li>
+                </ul>
+                <p>Wow nice!</p>
+            </div>
+            <div class="clearfix"> </div>
+            <a class="add-re" href="#">ADD REVIEW</a>
+            <hr />
+        </div>*@
+                <div id="fb-root"></div>
+                <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.3&appId=402675906989327&autoLogAppEvents=1"></script>
+                <div class="fb-comments" data-href="http://humobile.somee.com/" data-width="800" data-numposts="5"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".nav-tabs a").click(function () {
+                $(this).tab('show');
+            });
+        });
+    </script>
+
+
+
+
+    <div class="container">
+
+        <div class=" bottom-product">
+
+            <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                <div class="product-at ">
+                    <a href="#">
+                        <img class="img-responsive" src=@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh) alt="">
+                        <div class="pro-grid">
+                            <span class="buy-in">Mua hàng ngay</span>
+                        </div>
+                    </a>
+                </div>
+                <a href="#" class="item_add"><p class="number item_price"><i> </i>@Model.DonGia.Value.ToString("#,##") VNĐ</p></a>
+            </div>
+            <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                <div class="product-at ">
+                    <a href="#">
+                        <img class="img-responsive" src=@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh) alt="">
+                        <div class="pro-grid">
+                            <span class="buy-in">Mua hàng ngay</span>
+                        </div>
+                    </a>
+                </div>
+                <a href="#" class="item_add"><p class="number item_price"><i> </i>@Model.DonGia.Value.ToString("#,##") VNĐ</p></a>
+            </div>
+            <div class="col-md-4 bottom-cd simpleCart_shelfItem">
+                <div class="product-at ">
+                    <a href="#">
+                        <img class="img-responsive" src=@Url.Content("~/Content/HinhAnhSP/" + Model.HinhAnh) alt="">
+                        <div class="pro-grid">
+                            <span class="buy-in">Mua hàng ngay</span>
+                        </div>
+                    </a>
+                </div>
+                <a href="#" class="item_add"><p class="number item_price"><i> </i>@Model.DonGia.Value.ToString("#,##") VNĐ</p></a>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+
+

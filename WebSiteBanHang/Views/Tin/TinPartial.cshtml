@@ -1,0 +1,24 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<Tin>
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+@foreach (var item in Model)
+{
+    <h2><a href=""> @Truncate(item.BaiViet, 19) </a></h2>
+    <h5><span class="glyphicon glyphicon-time"></span>Thời gian.</h5>
+    <h5><span class="label label-danger">Food</span> <span class="label label-primary">Ipsum</span></h5><br>
+    <p> @Truncate(item.BaiViet,300) </p>
+    <br><br>
+}
+<div class="clearfix"> </div>
+
+

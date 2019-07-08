@@ -1,0 +1,20 @@
+﻿@model WebSiteBanHang.Models.SanPham
+
+@{
+    ViewBag.Title = "Xoa";
+    Layout = "~/Areas/admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<h2>Xóa sản phẩm</h2>
+@using (Html.BeginForm("Xoa", "QuanLySanPham", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Xác nhận XÓA" class="btn btn-success" />
+        </div>
+    </div>
+
+}
+ 

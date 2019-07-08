@@ -1,0 +1,118 @@
+﻿@model IEnumerable<WebSiteBanHang.Models.DonDatHang>
+@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Areas/admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Thống kê</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-3x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@ViewBag.TongThanhVien</div>
+                        <div>Thành viên</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("DanhSachKhachHang","KhachHang")">
+                <div class="panel-footer">
+                    <span class="pull-left">Chi tiết</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+
+                    <div class="col-xs-12 text-right">
+                        <div class="huge">                         
+                            @ViewBag.TongDoanhThu.ToString("#,##")
+                        </div>
+                        <div>Doanh thu</div>
+                    </div>
+                </div>
+            </div>
+            <a href="@Url.Action("DaGiaoDaThanhToan","QuanLyDonHang")">
+                <div class="panel-footer">
+                    <span class="pull-left">Chi tiết</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-3x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@ViewBag.TongDDH</div>
+                        <div>Đơn đặt hàng</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Chi tiết</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <div class="huge"> @ViewBag.TongDoanhThuTheoThang.ToString("#,##")</div>
+                        <div>Doanh Thu Theo Tháng</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Chi tiết</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+@using (Ajax.BeginForm("Index", "ThongKe", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
+{
+    <p>
+        Nhập tháng
+    </p>
+    <input type="text" name="txtThang" />
+    <p>
+        Nhập năm
+    </p>
+    <input type="text" name="txtNam" />
+    <p>
+        <br />
+    </p>
+    <input type="submit" class="btn-danger active" value="Tính doanh thu" />
+    @*<h2 id="ThongBao">Tổng doanh thu: <font color="red"></font></h2>*@
+}

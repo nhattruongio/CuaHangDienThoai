@@ -1,0 +1,158 @@
+﻿@using WebSiteBanHang.Models;
+@model ThanhVien
+@{
+    ViewBag.Title = "Đổi mật khẩu";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+<link rel="icon" type="image/png" href="~/Content/Account/images/icons/favicon.ico" />
+<link href="~/Content/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+<style>
+    body, h1, h2, h3, h4, h5, p, label, a, title, input {
+        font-family: "Poppins", sans-serif
+    }
+</style>
+<div class="limiter">
+    <div class="container">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-6">
+                    <form action="#" onsubmit="return false;" method="post">
+                        <h1 style="color:red;text-align:center;font-weight:bold">Đăng nhập</h1>
+                        <hr />
+                        <div>
+                            <span>Tên đăng nhập*</span>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Tài khoản" required>
+                        </div>
+                        <div>
+                            <span>Mật khẩu cũ*</span>
+                            <input type="password" id="old_password" name="old_password" class="form-control " placeholder="Mật khẩu">
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div>
+                            <span>Mật khẩu mới*</span>
+                            <input type="password" id="new_password" name="new_password" class="form-control " placeholder="Mật khẩu">
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div>
+                            <span>Nhập lại mật khẩu*</span>
+                            <input type="password" id="new_repasword" name="new_password" class="form-control " placeholder="Mật khẩu">
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div>
+                            <button class="" style="background-color : #f39c12">
+                                Thay đổi mật khẩu
+                            </button>
+                            <a href='@Url.Action("DangNhap", "Home", new { area = "" })' class="btn btn-default btn-lg btn-block">
+                                Đăng nhập
+                            </a>
+                        </div>
+                        <div class="clearfix"> </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dropDownSelect1"></div>
+<script src="~/Content/Account/vendor/animsition/js/animsition.min.js"></script>
+<script src="~/Content/Account/vendor/bootstrap/js/popper.js"></script>
+<script src="~/Content/Account/vendor/select2/select2.min.js"></script>
+<script src="~/Content/Account/vendor/daterangepicker/moment.min.js"></script>
+<script src="~/Content/Account/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="~/Content/Account/vendor/countdowntime/countdowntime.js"></script>
+<script src="~/Content/Account/js/main.js"></script>
+<script src="~/Content/js/sweetalert2.min.js"></script>
+<script>
+    "use strict"
+    $(document).ready(function () {
+        $('form').on('submit', function () {
+            login()
+        })
+    })
+    function login() {
+        let inputPassword = $('input[id="old_password"]').val()
+        let inputNewPassword = $('input[id = "new_pasword"]').val()
+        let inputNewRePassword = $('input[id = "new_repasword"]').val()
+
+        if (inputNewPassword.length < 6) {
+            Swal.fire({
+                position: "center",
+                type: "error",
+                title: "Mật khẩu phải lớn hơn hoặc bằng 6 ký tự",
+                showConfirmButton: false,
+                timer: 1000
+            })
+            return false
+        }else if (inputPassword != inputNewPassword) {
+                Swal.fire({
+                    position: "center",
+                    type: "error",
+                    title: "Mật khẩu mới phải khác mật khẩu cũ",
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            return false
+        } else if (inputNewPassword != inputNewRePassword) {
+            Swal.fire({
+                position: "center",
+                type: "error",
+                title: "Mật khẩu không khớp",
+                showConfirmButton: false,
+                timer: 1000
+            })
+            return false
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/Home/DoiMatKhau",
+                data: { "password": inputPassword, "new_pasword": inputNewPassword },
+                dataType: "json",
+                beforeSend: function () {
+                    Swal.fire({
+                        text: "Đang đổi mật khẩu ...",
+                        onOpen: () => {
+                            swal.showLoading()
+                        }
+                    })
+                },
+                success: function (response) {
+                    if (response.status == true) {
+                        Swal.fire({
+                            position: "center",
+                            type: "success",
+                            title: response.data,
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                            .then(function () {
+                                window.location.href = "/Home/DangNhap"
+                            })
+                    }
+                    else {
+                        Swal.fire({
+                            position: "center",
+                            type: "error",
+                            title: response.data,
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText)
+                }
+            })
+        }
+        
+    }
+</script>
+
+
+
+

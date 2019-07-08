@@ -1,0 +1,29 @@
+﻿@using WebSiteBanHang.Models
+@model IEnumerable<SanPham>
+<div class="h_menu4 ">
+    <ul class="memenu skyblue ">
+        @foreach (var groupItem in Model.GroupBy(n => n.LoaiSanPham))
+        {
+            // Điều kiện khác NULL , vì CSDL chưa nhập
+            if (groupItem.Key != null)
+            {
+                <li style="display: inline;">
+                    <a class="color1 btn dropdown-toggle" data-toggle="dropdown">@groupItem.Key.TenLoai</a>
+                    <ul class="dropdown-menu">
+                        @foreach (var item in groupItem.GroupBy(n => n.NhaSanXuat))
+                        {
+                            if (item.Key != null)
+                            {
+                                <li><a href="@Url.Action("SanPham", "SanPham", new { @MaLoaiSP = groupItem.Key.MaLoaiSP, @MaNSX = item.Key.MaNSX })">@item.Key.TenNSX</a></li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        }
+        <li style="display: inline;"><a class="color4" href="@Url.Action("GioiThieu","Home")">Giới thiệu</a></li>
+        <li style="display: inline;"><a class="color4" href="@Url.Action("DangPhatTrien","Home")">Sửa chữa</a></li>
+        <li style="display: inline;"><a class="color6" href="@Url.Action("Index","Tin")">Tin Công Nghệ</a></li>
+    </ul>
+</div>
+

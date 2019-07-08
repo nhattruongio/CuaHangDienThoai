@@ -1,0 +1,125 @@
+﻿@using WebSiteBanHang.Models;
+@model ThanhVien
+@{
+    /**/
+
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+
+<link rel="icon" type="image/png" href="~/Content/Account/images/icons/favicon.ico" />
+<style>
+    body, h1, h2, h3, h4, h5, p, label, a, title, input {
+        font-family: "Poppins", sans-serif
+    }
+</style>
+@*<link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Account/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Account/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Account/vendor/daterangepicker/daterangepicker.css">*@
+<link href="~/Content/css/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+@*<link rel="stylesheet" type="text/css" href="~/Content/Account/css/util.css">*@
+@*<link rel="stylesheet" type="text/css" href="~/Content/Account/css/main.css">*@
+<div class="limiter">
+    <div class="container">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-6">
+                    <form action="#" onsubmit="return false;" method="post">
+                        <h1 style="color:red;text-align:center;font-weight:bold">Đăng nhập</h1>
+                        <hr />
+                        <div>
+                            <span>Tên đăng nhập*</span>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Tài khoản" required>
+                        </div>
+                        <div>
+                            <span>Mật khẩu*</span>
+                            <input type="password" id="password" name="password" class="form-control " placeholder="Mật khẩu">
+                            <span class="focus-input100"></span>
+
+                        </div>
+                        <div>
+                            <button class="" style="background-color : #f39c12">
+                                Đăng nhập
+                            </button>
+                            <a href='@Url.Action("DangKy", "Home", new { area = "" })' class="btn btn-default btn-lg btn-block">
+                                Đăng ký
+                            </a>
+                        </div>
+                        <div class="clearfix"> </div>
+                        <div id="dropDownSelect1"></div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/Account/vendor/animsition/js/animsition.min.js"></script>
+<script src="~/Content/Account/vendor/bootstrap/js/popper.js"></script>
+<script src="~/Content/Account/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/Account/vendor/select2/select2.min.js"></script>
+<script src="~/Content/Account/vendor/daterangepicker/moment.min.js"></script>
+<script src="~/Content/Account/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="~/Content/Account/vendor/countdowntime/countdowntime.js"></script>
+<script src="~/Content/Account/js/main.js"></script>
+<script src="~/Content/js/sweetalert2.min.js"></script>
+<script>
+    "use strict"
+    $(document).ready(function () {
+        $('form').on('submit', function () {
+            login()
+        })
+    })
+    function login() {
+        let inputUsername = $('input[id="username"]').val()
+        let inputPassword = $('input[id="password"]').val()
+        $.ajax({
+            type: "POST",
+            url: "/Home/DangNhap",
+            data: { "username": inputUsername, "password": inputPassword },
+            dataType: "json",
+            beforeSend: function () {
+                Swal.fire({
+                    text: "Đang đăng nhập ...",
+                    onOpen: () => {
+                        swal.showLoading()
+                    }
+                })
+            },
+            success: function (response) {
+                if (response.status == true) {
+                    Swal.fire({
+                        position: "center",
+                        type: "success",
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                        .then(function () {
+                            window.location.href = "/Home/Index"
+                        })
+                }
+                else {
+                    Swal.fire({
+                        position: "center",
+                        type: "error",
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText)
+            }
+        })
+    }
+</script>
+
+

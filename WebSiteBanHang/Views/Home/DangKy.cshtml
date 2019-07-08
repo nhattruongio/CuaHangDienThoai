@@ -1,0 +1,176 @@
+﻿@using WebSiteBanHang.Models;
+@model ThanhVien
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+<style>
+    body, h1, h2, h3, h4, h5, p, label, a, title, input {
+        font-family: "Poppins", sans-serif
+    }
+</style>
+<link href="~/Content/css/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+<div class="container">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <form action="#" class="login100-form validate-form flex-sb flex-w" onsubmit="return false;" method="post">
+
+                    <h1 style="color:red;text-align:center;font-weight:bold">Đăng kí thành viên</h1>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div>
+                        <span>Tên đăng nhập*</span>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Tài khoản" required>
+                    </div>
+                    <div>
+                        <span>Địa chỉ*</span>
+                        <input type="text" name="address" id="address" class="form-control" placeholder="Địa chỉ" required>
+                    </div>
+                    <div>
+                        <span>Email*</span>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                        @*<p style="color:red">@ViewData["Loi3"]</p>*@
+                    </div>
+                    <div>
+                        <span>Số điện thoại*</span>
+                        <input type="text" id="cellphone" name="cellphone" class="form-control" placeholder="Số điện thoại" required>
+                    </div>
+                    <div>
+                        <span>Mật khẩu*</span>
+                        <input type="password" id="password" name="password" class="form-control " placeholder="Mật khẩu">
+                        @*<p style="color:red">@ViewData["Loi2"]</p>*@
+                    </div>
+                    <div>
+                        <span>Nhập lại mật khẩu*</span>
+                        <input type="password" name="repassword" id="repassword" class="form-control " placeholder="Nhập lại mật khẩu">
+                        @*<p style="color:red">@ViewData["Loi1"]</p>*@
+                    </div>
+                    <div>
+                        <span>Câu hỏi bí mật*</span>
+                        @Html.DropDownList("question")
+                    </div>
+                    <div>
+                        <input type="text" id="answer" name="answer" class="form-control" placeholder="Câu trả lời">
+                    </div>
+                    @*<div> @Html.MathCaptcha() </div>*@
+                    <br />
+                    <div class="rules">
+                        <p>Bằng việc tạo một tài khoản, bạn đồng ý với <span class="dieukhoan">Điều khoản dịch vụ</span> và <span class="chinhsach">Chính sách về Quyền riêng tư.</span>
+                    </div>
+                    @*<input  class="btn btn-default" type="submit"  value="Xác nhận">*@
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" style="background-color : #f39c12">
+                            Đăng ký
+                        </button>
+                    </div>
+                    <div class="clearfix"> </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="dropDownSelect1"></div>
+<script src="~/Content/Account/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/Content/Account/vendor/animsition/js/animsition.min.js"></script>
+<script src="~/Content/Account/vendor/bootstrap/js/popper.js"></script>
+<script src="~/Content/Account/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/Account/vendor/select2/select2.min.js"></script>
+<script src="~/Content/Account/vendor/daterangepicker/moment.min.js"></script>
+<script src="~/Content/Account/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="~/Content/Account/vendor/countdowntime/countdowntime.js"></script>
+<script src="~/Content/Account/js/main.js"></script>
+<script src="~/Content/js/sweetalert2.min.js"></script>
+<script src="~/Content/js/function.js"></script>
+
+<script>
+        "use strict"
+        $(document).ready(function () {
+            $('form').on('submit', function () {
+                login()
+            })
+         })
+        function login() {
+            let inputUsername = $('input[id="username"]').val()
+            let inputPassword = $('input[id="password"]').val()
+            let inputRePassword = $('input[id = "repassword"]').val()
+            let inputEmail = $('input[id="email"]').val()
+            let inputAddress = $('input[id="address"]').val()
+            let inputCellphone = $('input[id="cellphone"]').val()
+            let Question = $('[id="question"]').val()
+            let inputAnswer = $('input[id = "answer"]').val()
+            if (inputPassword.length < 6) {
+                Swal.fire({
+                    position: "center",
+                    type: "error",
+                    title: "Mật khẩu phải lớn hơn hoặc bằng 6 ký tự",
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                return false
+            }
+            else if (inputPassword != inputRePassword) {
+                Swal.fire({
+                    position: "center",
+                    type: "error",
+                    title: "Mật khẩu không khớp",
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                return false
+            }
+            else
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/DangKy",
+                    data: { "username": inputUsername, "password": inputPassword, "email": inputEmail, "address": inputAddress, "cellphone": inputCellphone, "question": Question, "answer": inputAnswer },
+                    dataType: "json",
+                    beforeSend: function () {
+                        Swal.fire({
+                            text: "Đang đăng ký ...",
+                            onOpen: () => {
+                                swal.showLoading()
+                            }
+                        })
+                    },
+                    success: function (response) {
+                        if (response.status == true) {
+                            Swal.fire({
+                                position: "center",
+                                type: "success",
+                                title: response.data,
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                                .then(function () {
+                                    window.location.href = "@Url.Action("DangNhap", "Home", new { area = "" })"
+                                })
+                        }
+                        else {
+                            Swal.fire({
+                                position: "center",
+                                type: "error",
+                                title: response.data,
+                                showConfirmButton: false,
+                                timer: 1000
+                            })
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText)
+                    }
+                })
+            }
+        }
+
+
+</script>
+
+
+
+

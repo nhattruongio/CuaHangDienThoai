@@ -1,0 +1,127 @@
+﻿@using WebSiteBanHang.Models;
+@model DonDatHang
+@{
+    ViewBag.Title = "DuyetDonHang";
+    Layout = "~/Areas/admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+<div class="ChiTietDonHang table" style="padding-top:60px">
+    @{ IEnumerable<ChiTietDonDatHang> lstChiTietDH = (IEnumerable<ChiTietDonDatHang>)ViewBag.ListChiTietDH;}
+    <div class="row">
+        <div class="col-md-6">
+            <table id="table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"  style="color:red">Thông tin đơn hàng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Mã đơn hàng:</th>
+                        <td>@Model.MaDDH @Html.Hidden("MaDDH", Model.MaDDH)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mã khách hàng:</th>
+                        <td>@Model.KhachHang.MaKH</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tên khách hàng:</th>
+                        <td>@Model.KhachHang.TenKH</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ngày đặt:</th>
+                        <td>@Model.NgayDat.Value.ToString("dd/MM/yyy")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Đã giao:</th>
+                        <td>@Html.EditorFor(model => model.TinhTrangGiaoHang)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Đã thanh toán:</th>
+                        <td>@Html.EditorFor(model => model.DaThanhToan)</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+
+            <table id="table1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"  style="color:red">Chi tiết đơn đặt hàng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var item in lstChiTietDH)
+                    {
+                        <tr>
+                            <th scope="row">Sản phẩm</th>
+                            <td>@item.SanPham.TenSP</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Hình ảnh</th>
+                            <td><img width="120" height="90" src="@Url.Content("~/Content/HinhAnhSP/" + @item.SanPham.HinhAnh)" /></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Số lượng </th>
+                            <td>@item.SoLuong</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Đơn giá</th>
+                            <td>@item.DonGia.Value.ToString("#,##") VNĐ</td>
+                        </tr>
+                        { i++; }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h3 id="total1" style="color:red" >
+        Số tiền phải thanh toán: @Model.ChiTietDonDatHangs.Sum(n => n.DonGia * n.SoLuong).Value.ToString("#,##") VNĐ
+    </h3>
+    <br /><br />
+    <button type="submit" class="btn btn-success" id="btnInDonHang">
+        <i class="fa fa-print"> </i>
+        In hoá đơn
+    </button>
+    <button type="submit" class="btn btn-danger" >
+        <i class="fa fa-save"> </i>
+       Lưu đơn hàng
+    </button>
+</div>
+}
+<script>
+    $("#btnInDonHang").click(function () {
+        var content = "<table>" + $("#table").html() + $("#table1").html() + "</table>";
+        var total = "<h3>" + $("#total1").html() + "</h3>";
+        //var total = "Tổng hoá đơn: " + $("#test").val()
+        var day = new Date();
+        var datetime = "Last Sync: " + day.getDay() + "/"+day.getMonth() 
+                                                    + "/" + day.getFullYear() + "  " 
+                                                    + day.getHours() + ":" 
+            + day.getMinutes() + ":" + day.getSeconds();
+        InDonHang(content, total, datetime);
+    });
+
+    //Phương thức in
+    function InDonHang(content,total) {
+        var printWindow = window.open('', '', 'height=500,width=300');
+        printWindow.document.write('<html><head><title>Hoá đơn</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write(content);
+        printWindow.document.write(total);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>
+
+

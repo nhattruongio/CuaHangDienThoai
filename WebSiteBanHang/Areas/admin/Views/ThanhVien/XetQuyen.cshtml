@@ -1,0 +1,52 @@
+﻿@model WebSiteBanHang.Models.ThanhVien
+@{
+    ViewBag.Title = "Xét Quyền";
+    Layout = "~/Areas/admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<script>tinymce.init({ selector: 'textarea' });</script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });</script>
+@*Chú ý thêm phần enctype*@
+@using (Html.BeginForm("XetQuyen", "ThanhVien", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal" style="padding-top:50px">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Hidden("MaThanhVien", Model.MaThanhVien)
+
+    <div class="form-group">
+        <p class="control-label col-md-2">
+            Tên tài khoản
+        </p>
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <p class="control-label col-md-2">
+            Quyền
+        </p>
+        <div class="col-md-6">
+            @Html.DropDownList("MaLoaiTV", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaThanhVien, "", new { @class = "text-danger" })
+        </div>
+    </div>
+   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Xác nhận" class="btn btn-lg  btn-success" />
+        </div>
+    </div>
+
+</div>
+}
+
+

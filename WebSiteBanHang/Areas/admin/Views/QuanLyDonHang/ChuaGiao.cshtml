@@ -1,0 +1,109 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<DonDatHang>
+
+@{
+    ViewBag.Title = "ChuaGiao";
+    Layout = "~/Areas/admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<ul class="nav nav-tabs" style="padding-top:100px">
+    <li role="presentation"><a href="@Url.Action("ChuaThanhToan","QuanLyDonHang")">Duyệt đơn hàng</a></li>
+    <li role="presentation" class="active"><a href="@Url.Action("ChuaGiao","QuanLyDonHang")">Chưa giao</a></li>
+    <li role="presentation"><a href="@Url.Action("DaGiaoDaThanhToan","QuanLyDonHang")">Đã giao & thanh toán</a></li>
+</ul>
+<br />
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Danh sách đơn hàng chưa giao
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        Mã đơn hàng
+                                    </th>
+                                    <th>
+                                        Tên khách hàng
+                                    </th>
+                                    <th>
+                                        Địa chỉ
+                                    </th>
+                                    <th>
+                                        Số điện thoại
+                                    </th>
+                                    <th>Ngày đặt</th>
+                                    <th>Ngày giao</th>
+                                    <th>Tình trạng giao hàng</th>
+                                    <th>Đã thanh toán</th>
+                                    <th>
+                                        Ưu đãi
+                                    </th>
+                                
+                                    <th>
+                                        Đã huỷ
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr class="odd gradeX">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaDDH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KhachHang.TenKH)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KhachHang.DiaChi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.KhachHang.SoDienThoai)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayGiao)
+
+                                    </td>
+
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TinhTrangGiaoHang)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DaThanhToan)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UuDai)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DaHuy)
+
+                                    </td>
+                                    <td class="text-right">
+                                        @Html.ActionLink("Giao hàng thành công", "GiaoHang", new { id = item.MaDDH }, new { @target = "_blank" })
+                                    </td>
+
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

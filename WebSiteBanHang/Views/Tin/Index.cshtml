@@ -1,0 +1,45 @@
+﻿@using WebSiteBanHang.Models;
+@model IEnumerable<Tin>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/ProductLayout.cshtml";
+}
+@{
+    IEnumerable<Tin> lstTin = (IEnumerable<Tin>)ViewBag.ListTin;
+}
+<style>
+</style>
+<h1 style=" font-family:Poppins, sans-serif;color:red;text-align:center;font-weight:bold">Tin tức công nghệ</h1>
+<div class="container">
+    <div class="col-md-4" style="border:double;width:370px;height:500px">
+        <div class="row">
+            <h1 style=" font-family:Poppins, sans-serif;color:red;text-align:center;font-weight:bold">Bài viết nổi bật</h1>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Blog..">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+             
+            <div class="container" style="border:double;width:370px;height:100px;">
+                <img src="~/Content/images/636955238030059495_Banner-H1 s10@2x-3.png"  style="width:330px;height:80px;padding:30px,10px,10px,10px;"/>
+            </div>
+            <div class="container" style="border:double;width:370px;height:100px">
+                <img src="~/Content/images/636955238030059495_Banner-H1 s10@2x-3.png" style="width:330px;height:80px;padding:30px,10px,10px,10px;"/>
+            </div>
+            <div class="container" style="border:double;width:370px;height:100px">
+                <img src="~/Content/images/636955238030059495_Banner-H1 s10@2x-3.png" style="width:330px;height:80px;padding:30px,10px,10px,10px;"/>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-md-8" style="border:double;width:740px;height:500px">
+        <div class="container" style="border:double;width:720px;height:250px">
+            @Html.Partial("~/Views/Tin/TinPartial.cshtml", lstTin)
+        </div>
+    </div>
+
+</div>
